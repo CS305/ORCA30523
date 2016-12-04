@@ -10,10 +10,13 @@
     ViewBag.Title = "Home Page";
     var user = User.Identity.GetUserName();
 }
+<h2 style="color:#079449;">
+    Experts A-Z.
+</h2>
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }
@@ -24,12 +27,12 @@
     </th>
     <th></th>
 </tr>
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 <!DOCTYPE html>
 <html>
 <head>
     <style>
+        
         a {
             color: #079449;
         }
@@ -55,16 +58,13 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
             margin: 0 auto;
             width: 100%;
         }
-
-        abc {
-        }
     </style>
 </head>
 @if (Model != null)
 {
     foreach (var experts in Model)
     {
-        if (experts.register != 0 && experts.isDeleted == 0)
+        if (experts.isDeleted == 0)
         {
             <body>
                 <div id="mydiv">
@@ -156,3 +156,8 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     }
 }
 </html>
+<div style="position: relative;width: 600px; height: 425px;">    
+    <div style="position: absolute; bottom: 5px;">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </div>
+</div>

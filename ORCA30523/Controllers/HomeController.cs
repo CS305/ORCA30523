@@ -53,7 +53,6 @@ namespace IdentitySample.Controllers
             int pageSize = 6;
             int pageNumber = (page ?? 1);
             return View(experts.ToPagedList(pageNumber, pageSize));
-
         }
         [Authorize]
         public ActionResult About()

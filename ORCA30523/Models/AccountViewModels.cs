@@ -85,12 +85,15 @@ namespace IdentitySample.Models
         public string State { get; set; }
         [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
+        [RegularExpression("[A-Za-z0-9]+")]
         [Display(Name = "First Name")]
+        [Required]
         public string firstName { get; set; }
         [Display(Name = "Last Name")]
+        [Required]
+        [RegularExpression("[A-Za-z0-9]+")]
         public string lastName { get; set; }
         [Display(Name = "Phone Number")]
-        [Required(ErrorMessage = "Your must provide a PhoneNumber")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string number { get; set; }
