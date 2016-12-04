@@ -73,66 +73,9 @@ namespace IdentitySample.Models
             Mr = 0,
             Dr,
             Ms,
-            Mrs,
-            Pr
-            
+            Mrs
         }
-
-        public enum StateList
-        {
-
-            AK = 1,
-            AZ,
-            AR,
-            CA,
-            CO,
-            CT,
-            DE,
-            FA,
-            GA,
-            HI,
-            ID,
-            IL,
-            IN,
-            IA,
-            KS,
-            KY,
-            LA,
-            ME,
-            MD,
-            MI,
-            MN,
-            MS,
-            MO,
-            MT,
-            NE,
-            NV,
-            NH,
-            NJ,
-            NM,
-            NY,
-            NC,
-            ND,
-            OH,
-            OK,
-            OR,
-            PA,
-            RI,
-            SC,
-            SD,
-            TN,
-            TX,
-            UT,
-            VT,
-            VA,
-            WA,
-            WV,
-            WI,
-            WY
-        }
-
-
-        public string PostID { get; set; }
+        //public string PostID { get; set; }
         public string CommentID { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
@@ -140,8 +83,8 @@ namespace IdentitySample.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        //public DbSet<Post> Posts { get; set; }
-        //public DBSet<Comment> Comments { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
