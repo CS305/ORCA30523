@@ -1,0 +1,48 @@
+﻿
+@model IEnumerable<ORCA30523.Models.Post>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Messages</h2>
+<p>
+    @Html.ActionLink("Add a Message", "New")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            @Html.DisplayNameFor(model => model.Subject)
+            @Html.DisplayNameFor(model => model.Body)
+            @Html.DisplayNameFor(model => model.ToEmail)
+            @Html.DisplayNameFor(model => model.FromEmail)
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td>
+                    
+                    <th>
+                        @Html.DisplayFor(modelItem => post.Subject)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => post.Body)
+                   </th>
+                   <th>
+                        @Html.DisplayFor(modelItem => post.ToEmail)
+                    </th>
+                 </td>
+                <td>
+                    <div>
+                        @Html.ActionLink("Edit", "Edit", new { id = post.PostID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = post.PostID })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

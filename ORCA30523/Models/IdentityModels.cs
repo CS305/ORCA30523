@@ -83,8 +83,8 @@ namespace IdentitySample.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        //public DbSet<Post> Posts { get; set; }
-        //public DBSet<Comment> Comments { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DBSet<Comment> Comments { get; set; }
         
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
