@@ -19,8 +19,8 @@ namespace ORCA30523.Models
 
         [Display(Name = "From: ")]
         public string FromEmail { get; set; }
-        public DateTime DatePosted { get; set; }
-        public DateTime LastDate { get; set; }
+        public string DatePosted { get; set; }
+        public string LastDate { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }
 }

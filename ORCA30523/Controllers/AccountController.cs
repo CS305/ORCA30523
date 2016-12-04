@@ -468,18 +468,18 @@ namespace IdentitySample.Controllers
             return img;
         }
 
-        [HttpPost]
-        public ActionResult Index(LoginViewModel model)
-        {
-            //validate captcha 
-            if (Session["Captcha"] == null || Session["Captcha"].ToString() != model.Captcha)
-            {
-                ModelState.AddModelError("Captcha", "Wrong value of sum, please try again.");
-                //dispay error and generate a new captcha 
-                return View(model);
-            }
-            return RedirectToAction("ThankYouPage");
-        }
+        //[HttpPost]
+        //public ActionResult Index(LoginViewModel model)
+        //{
+        //    //validate captcha 
+        //    if (Session["Captcha"] == null || Session["Captcha"].ToString() != model.Captcha)
+        //    {
+        //        ModelState.AddModelError("Captcha", "Wrong value of sum, please try again.");
+        //        //dispay error and generate a new captcha 
+        //        return View(model);
+        //    }
+        //    return RedirectToAction("ThankYouPage");
+        //}
 
         #region Helpers
         // Used for XSRF protection when adding external logins

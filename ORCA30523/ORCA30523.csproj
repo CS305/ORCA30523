@@ -326,6 +326,18 @@
     <Compile Include="Migrations\201612040629048_changeCaptcha.Designer.cs">
       <DependentUpon>201612040629048_changeCaptcha.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612042112308_removeCaptcha.cs" />
+    <Compile Include="Migrations\201612042112308_removeCaptcha.Designer.cs">
+      <DependentUpon>201612042112308_removeCaptcha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612042207204_changeDateTime.cs" />
+    <Compile Include="Migrations\201612042207204_changeDateTime.Designer.cs">
+      <DependentUpon>201612042207204_changeDateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612042210516_removePostID.cs" />
+    <Compile Include="Migrations\201612042210516_removePostID.Designer.cs">
+      <DependentUpon>201612042210516_removePostID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -348,6 +360,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612040629048_changeCaptcha.resx">
       <DependentUpon>201612040629048_changeCaptcha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612042112308_removeCaptcha.resx">
+      <DependentUpon>201612042112308_removeCaptcha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612042207204_changeDateTime.resx">
+      <DependentUpon>201612042207204_changeDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612042210516_removePostID.resx">
+      <DependentUpon>201612042210516_removePostID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

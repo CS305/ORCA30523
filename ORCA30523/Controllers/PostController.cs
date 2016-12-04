@@ -9,6 +9,8 @@ using ORCA30523.Models;
 using System.Net;
 using System.Data;
 using System.Data.Entity.Infrastructure;
+using System.Web.UI.WebControls;
+using System.Data.Entity.Validation;
 
 namespace ORCA30523.Controllers
 {
@@ -16,11 +18,40 @@ namespace ORCA30523.Controllers
     {
         // GET: Post
         private ApplicationDbContext _dbContext;
+
+        public partial class MyContext : ApplicationDbContext
+        {
+            // Override base SaveChanges to expand out validation errors so client gets an actually helpful message
+            public override int SaveChanges()
+            {
+                try
+                {
+                    return base.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    // Retrieve the error messages as a list of strings.
+                    var errorMessages = ex.EntityValidationErrors
+                    .SelectMany(x => x.ValidationErrors)
+                    .Select(x => x.ErrorMessage);
+
+                    // Join the list to a single string.
+                    var fullErrorMessage = string.Join("; ", errorMessages);
+
+                    // Combine the original exception message with the new one.
+                    var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                    // Throw a new DbEntityValidationException with the improved exception message.
+                    throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+                }
+            }
+        }
         public PostController()
         {
             _dbContext = new ApplicationDbContext();
         }
         // GET: Message
+        [Authorize]
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -48,12 +79,15 @@ namespace ORCA30523.Controllers
             {
                 case "name_desc":
                     posts = posts.OrderByDescending(s => s.ToEmail);
+                    posts = posts.OrderByDescending(s => s.Subject);
                     break;
                 case "Date":
                     posts = posts.OrderBy(s => s.DatePosted);
+                    posts = posts.OrderBy(s => s.LastDate);
                     break;
                 case "date_desc":
                     posts = posts.OrderByDescending(s => s.DatePosted);
+                    posts = posts.OrderByDescending(s => s.LastDate);
                     break;
                 default:
                     posts = posts.OrderBy(s => s.ToEmail);
@@ -72,32 +106,37 @@ namespace ORCA30523.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Subject,Body,ToEmail,FromEmail")] Post post)
+        public ActionResult Create(Post post)
         {
-            try
-            {
+            //try
+            //{
 
-                if (ModelState.IsValid)
-                {
+            //    if (ModelState.IsValid)
+            //    {
                     _dbContext.Posts.Add(post);
                     _dbContext.SaveChanges();
                     return RedirectToAction("Index");
-                }
-            }
-            catch (RetryLimitExceededException /* dex */)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            }
+            //    }
+            // }
+            //catch (RetryLimitExceededException /* dex */)
+            //{
+            //    //Log the error (uncomment dex variable name and add a line here to write a log.
+            //    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            //}
 
-            return View(post);
+            //return View(post);
         }
-        public ActionResult Add(Post post)
-        {
-            _dbContext.Posts.Add(post);
-            _dbContext.SaveChanges();
-            return RedirectToAction("Index");
-        }
+
+
+
+
+
+        //public ActionResult Add(Post post)
+        //{
+        //    _dbContext.Posts.Add(post);
+        //    _dbContext.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         public ActionResult Edit(int id)
         {
