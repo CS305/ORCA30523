@@ -27,7 +27,7 @@ namespace IdentitySample.Models
         }
         public string Address { get; set; }
         public string City { get; set; }
-        public StateList State { get; set; }
+        public string State { get; set; }
         [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
         [Display(Name = "First Name")]
@@ -52,10 +52,10 @@ namespace IdentitySample.Models
             {
                 string dspAddress = string.IsNullOrWhiteSpace(this.Address) ? "" : this.Address;
                 string dspCity = string.IsNullOrWhiteSpace(this.City) ? "" : this.City;
-                //string dspState = string.IsNullOrWhiteSpace(this.State) ? "" : this.State;
+                string dspState = string.IsNullOrWhiteSpace(this.State) ? "" : this.State;
                 string dspPostalCode = string.IsNullOrWhiteSpace(this.PostalCode) ? "" : this.PostalCode;
                 return string
-                    .Format("{0} {1} {2} {3}", dspAddress, dspCity, dspPostalCode);
+                    .Format("{0} {1} {2} {3}", dspAddress, dspCity, dspState, dspPostalCode);
             }
         }
         public enum Deleted
