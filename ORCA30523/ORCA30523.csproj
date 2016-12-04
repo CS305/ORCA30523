@@ -223,7 +223,6 @@
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Post\Delete.cshtml" />
     <Content Include="Views\Post\Edit.cshtml" />
-    <Content Include="Views\Post\_PostForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
