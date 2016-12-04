@@ -1,5 +1,5 @@
 ﻿@model IdentitySample.Models.LoginViewModel
-
+@using Recaptcha.Web.Mvc
 @{
     ViewBag.Title = "Log in";
 }
@@ -44,18 +44,21 @@
                 <p>
                     @Html.ActionLink("Register a new user?", "Register")
                 </p>
-                <p>
-                    @Html.ActionLink("Forget your password?", "ForgotPassword")
-                </p>
             }
         </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new IdentitySample.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
 </div>
+
+    @*form specific fields*@
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Captcha)
+        <a href="@Url.Action("Index")">
+            <img alt="Captcha" src="@Url.Action("CaptchaImage")" style="" />
+        </a>
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Captcha)
+        @Html.ValidationMessageFor(model => model.Captcha)
+    </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
