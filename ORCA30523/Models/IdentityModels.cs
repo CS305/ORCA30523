@@ -1,4 +1,4 @@
-﻿//using ORCA30523.Models;
+﻿using ORCA30523.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
@@ -77,14 +77,14 @@ namespace IdentitySample.Models
         }
         public string PostID { get; set; }
         public string CommentID { get; set; }
-        //public virtual ICollection<Post> Posts { get; set; }
-        // public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        
-        
+        //public DbSet<Post> Posts { get; set; }
+        //public DBSet<Comment> Comments { get; set; }
         
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
