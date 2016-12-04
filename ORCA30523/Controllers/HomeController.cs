@@ -36,7 +36,7 @@ namespace IdentitySample.Controllers
             ViewBag.CurrentFilter = searchString;
             var experts = from s in db.Users.Where(s => s.Roles.Select(y => y.RoleId).Contains("ea07d5c7-466b-4c48-ac1d-3df199ae8cd8"))
                           select s;
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString)) 
             {
                 experts = experts.Where(s => s.lastName.Contains(searchString) || s.firstName.Contains(searchString) || 
                 s.expertise.Contains(searchString) || s.expertise2.Contains(searchString) || s.expertise3.Contains(searchString));
@@ -53,7 +53,6 @@ namespace IdentitySample.Controllers
             int pageSize = 6;
             int pageNumber = (page ?? 1);
             return View(experts.ToPagedList(pageNumber, pageSize));
-
         }
         [Authorize]
         public ActionResult About()
