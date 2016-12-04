@@ -58,6 +58,9 @@ namespace IdentitySample.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+        //[Required]
+        //[Display(Name = "How much is the sum")]
+        //public string Captcha { get; set; }
     }
 
     public class RegisterViewModel

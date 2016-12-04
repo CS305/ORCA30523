@@ -38,10 +38,11 @@ namespace IdentitySample.Controllers
                           select s;
             if (!String.IsNullOrEmpty(searchString)) 
             {
-                experts = experts.Where(s => s.lastName.Contains(searchString) || s.firstName.Contains(searchString));
+                experts = experts.Where(s => s.lastName.Contains(searchString) || s.firstName.Contains(searchString) || 
+                s.expertise.Contains(searchString) || s.expertise2.Contains(searchString) || s.expertise3.Contains(searchString));
             }
             switch (sortOrder)
-            {
+            { 
                 case "name_desc":
                     experts = experts.OrderByDescending(s => s.lastName);
                     break;

@@ -75,7 +75,7 @@ namespace IdentitySample.Models
             Ms,
             Mrs
         }
-        public string PostID { get; set; }
+        //public string PostID { get; set; }
         public string CommentID { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
@@ -83,8 +83,8 @@ namespace IdentitySample.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        //public DbSet<Post> Posts { get; set; }
-        //public DBSet<Comment> Comments { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
