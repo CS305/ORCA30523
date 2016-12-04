@@ -49,7 +49,7 @@ namespace IdentitySample.Controllers
                     experts = experts.OrderBy(s => s.lastName);
                     break;
             }
-            int pageSize = 4;
+            int pageSize = 6;
             int pageNumber = (page ?? 1);
             return View(experts.ToPagedList(pageNumber, pageSize));
 
