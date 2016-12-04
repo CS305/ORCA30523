@@ -235,7 +235,10 @@ namespace IdentitySample.Controllers
                     ModelState.AddModelError("", result.Errors.First());
                     return View();
                 }
-                result = await UserManager.RemoveFromRolesAsync(user.Id, userRoles.Except(selectedRole).ToArray<string>());
+                if (User.IsInRole("Admin"))
+                {
+                    result = await UserManager.RemoveFromRolesAsync(user.Id, userRoles.Except(selectedRole).ToArray<string>());
+                }
 
                 if (!result.Succeeded)
                 {
