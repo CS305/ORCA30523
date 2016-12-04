@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="http://www.science.marshall.edu/jonest/MarshallMlogo.bmp">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
@@ -36,7 +36,6 @@
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        <li>@Html.ActionLink("Messages", "Index", "Post")</li>
 
                         @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                         {
