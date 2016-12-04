@@ -73,7 +73,9 @@ namespace IdentitySample.Models
             Mr = 0,
             Dr,
             Ms,
-            Mrs
+            Mrs,
+            Pr
+            
         }
         public string PostID { get; set; }
         public string CommentID { get; set; }
