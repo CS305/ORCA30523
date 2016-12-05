@@ -184,7 +184,7 @@ namespace ORCA30523.Controllers
             postInDb.ToEmail = post.ToEmail;
             postInDb.FromEmail = post.FromEmail;
             postInDb.DatePosted = post.DatePosted;
-            postInDb.CreateDate = post.CreateDate;
+            postInDb.CreateDate = post.CreateDate; 
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index", routeValues: new { searchString = currentUser.Email });
