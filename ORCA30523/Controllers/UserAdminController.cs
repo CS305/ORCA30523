@@ -13,7 +13,7 @@ namespace IdentitySample.Controllers
 {
     public class UsersAdminController : Controller
     {
-        private ApplicationDbContext _dbContext;
+        private ApplicationDbContext _dbContext; 
         public UsersAdminController()
         {
             _dbContext = new ApplicationDbContext();
