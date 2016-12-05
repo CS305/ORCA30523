@@ -7,13 +7,13 @@ namespace ORCA30523.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class removeforiegnkeys2 : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(removeforiegnkeys2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201612050020567_removeforiegnkeys2"; }
+            get { return "201612050057406_init"; }
         }
         
         string IMigrationMetadata.Source

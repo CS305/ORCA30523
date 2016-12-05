@@ -7,12 +7,10 @@ namespace ORCA30523.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.AspNetUsers", "PostID", c => c.String());
         }
         
         public override void Down()
         {
-            DropColumn("dbo.AspNetUsers", "PostID");
         }
     }
 }

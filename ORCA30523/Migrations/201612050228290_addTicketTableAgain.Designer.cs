@@ -7,13 +7,13 @@ namespace ORCA30523.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class removeForiegnKeys : IMigrationMetadata
+    public sealed partial class addTicketTableAgain : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(removeForiegnKeys));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addTicketTableAgain));
         
         string IMigrationMetadata.Id
         {
-            get { return "201612050017520_removeForiegnKeys"; }
+            get { return "201612050228290_addTicketTableAgain"; }
         }
         
         string IMigrationMetadata.Source

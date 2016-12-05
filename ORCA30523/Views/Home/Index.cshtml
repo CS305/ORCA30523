@@ -59,6 +59,12 @@
             width: 100%;
         }
     </style>
+    <script>
+        $('.email').live('click', function(){
+        var ide = $(this).attr('title');
+            alert(ide);
+        });
+    </script>
 </head>
 @if (Model != null)
 {
@@ -115,7 +121,7 @@
                                                                         <span class="email-name">Work Email</span>
                                                                         <span class="cn-separator">:</span>
                                                                         <span class="email-address">
-                                                                            <a class="value" title="@experts.prefix @experts.firstName @experts.lastName work email." style="color:#079449" href="mailto: @experts.Email ">@experts.Email</a>
+                                                                            <a class="email" title="@experts.prefix @experts.firstName @experts.lastName work email." style="color:#079449" href="@Url.Action("Create", "Post", new {@class= @experts.Email})">@experts.Email</a>
                                                                         </span>
                                                                         <span class="type" style="display: none;">INTERNET</span>
                                                                     </div>
