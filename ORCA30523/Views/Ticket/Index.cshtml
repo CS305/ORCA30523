@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<ORCA30523.Models.Post>
+﻿@model PagedList.IPagedList<ORCA30523.Models.Ticket>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
@@ -11,7 +11,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@using (Html.BeginForm("Index", "Post", FormMethod.Get))
+@using (Html.BeginForm("Index", "Ticket", FormMethod.Get))
 {
     <p>
         Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
@@ -22,6 +22,9 @@
     <tr>
         <th>
             @Html.ActionLink("To Email", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("From Email", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.ActionLink("Subject", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
@@ -52,12 +55,12 @@
                 @Html.DisplayFor(modelItem => item.DatePosted)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastDate)
+                @Html.DisplayFor(modelItem => item.CreateDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.PostID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.PostID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.PostID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>
     }

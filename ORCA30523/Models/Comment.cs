@@ -11,7 +11,7 @@ namespace ORCA30523.Models
     {
         [Key]
         public string CommentID { get; set; }
-        public string PostID { get; set; }
+        //public string PostID { get; set; }
         public string Body { get; set; }
         public string Username { get; set; }
         public DateTime DatePosted { get; set; }

@@ -14,39 +14,12 @@ using System.Data.Entity.Validation;
 
 namespace ORCA30523.Controllers
 {
-    public class PostController : Controller
+    public class TicketController : Controller
     {
         // GET: Post
         private ApplicationDbContext _dbContext;
 
-        public partial class MyContext : ApplicationDbContext
-        {
-            // Override base SaveChanges to expand out validation errors so client gets an actually helpful message
-            public override int SaveChanges()
-            {
-                try
-                {
-                    return base.SaveChanges();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    // Retrieve the error messages as a list of strings.
-                    var errorMessages = ex.EntityValidationErrors
-                    .SelectMany(x => x.ValidationErrors)
-                    .Select(x => x.ErrorMessage);
-
-                    // Join the list to a single string.
-                    var fullErrorMessage = string.Join("; ", errorMessages);
-
-                    // Combine the original exception message with the new one.
-                    var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
-
-                    // Throw a new DbEntityValidationException with the improved exception message.
-                    throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
-                }
-            }
-        }
-        public PostController()
+        public TicketController()
         {
             _dbContext = new ApplicationDbContext();
         }
@@ -68,7 +41,7 @@ namespace ORCA30523.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-            var posts = from s in _dbContext.Posts
+            var posts = from s in _dbContext.Tickets
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -83,11 +56,11 @@ namespace ORCA30523.Controllers
                     break;
                 case "Date":
                     posts = posts.OrderBy(s => s.DatePosted);
-                    posts = posts.OrderBy(s => s.LastDate);
+                    posts = posts.OrderBy(s => s.CreateDate);
                     break;
                 case "date_desc":
                     posts = posts.OrderByDescending(s => s.DatePosted);
-                    posts = posts.OrderByDescending(s => s.LastDate);
+                    posts = posts.OrderByDescending(s => s.CreateDate);
                     break;
                 default:
                     posts = posts.OrderBy(s => s.ToEmail);
@@ -98,6 +71,20 @@ namespace ORCA30523.Controllers
             return View(posts.ToPagedList(pageNumber, pageSize));
         }
 
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ticket post = _dbContext.Tickets.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
+        }
+
         // GET: Posts/Create
         public ActionResult Create()
         {
@@ -106,41 +93,41 @@ namespace ORCA30523.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Post post)
+        public ActionResult Create([Bind(Include = "ToEmail,FromEmail,Subject,Body,DatePosted,LastDate")]Ticket post)
         {
-            //try
-            //{
+            try
+            {
 
-            //    if (ModelState.IsValid)
-            //    {
-                    _dbContext.Posts.Add(post);
+               // if (ModelState.IsValid)
+                //{
+                    _dbContext.Tickets.Add(post);
                     _dbContext.SaveChanges();
                     return RedirectToAction("Index");
-            //    }
-            // }
-            //catch (RetryLimitExceededException /* dex */)
-            //{
-            //    //Log the error (uncomment dex variable name and add a line here to write a log.
-            //    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            //}
+        //}
+    }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
 
-            //return View(post);
+            return View(post);
         }
 
 
 
 
 
-        //public ActionResult Add(Post post)
-        //{
-        //    _dbContext.Posts.Add(post);
-        //    _dbContext.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        public ActionResult Add(Ticket post)
+        {
+            _dbContext.Tickets.Add(post);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         public ActionResult Edit(int id)
         {
-            var post = _dbContext.Posts.SingleOrDefault(v => v.PostID.Equals(id));
+            var post = _dbContext.Tickets.SingleOrDefault(v => v.ID.Equals(id));
 
             if (post == null)
                 return HttpNotFound();
@@ -156,7 +143,7 @@ namespace ORCA30523.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var postToUpdate = _dbContext.Posts.Find(id);
+            var postToUpdate = _dbContext.Tickets.Find(id);
             if (TryUpdateModel(postToUpdate, "",
                new string[] { "Subject", "Body", "ToEmail", "FromEmail", "PostDate", "LastDate" }))
             {
@@ -175,24 +162,11 @@ namespace ORCA30523.Controllers
             return View(postToUpdate);
         }
 
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = _dbContext.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
-        }
 
         [HttpPost]
-        public ActionResult Update(Post post)
+        public ActionResult Update(Ticket post)
         {
-            var postInDb = _dbContext.Posts.SingleOrDefault(v => v.PostID.Equals(post.PostID));
+            var postInDb = _dbContext.Tickets.SingleOrDefault(v => v.ID.Equals(post.ID));
 
             if (postInDb == null)
                 return HttpNotFound();
@@ -202,20 +176,17 @@ namespace ORCA30523.Controllers
             postInDb.ToEmail = post.ToEmail;
             postInDb.FromEmail = post.FromEmail;
             postInDb.DatePosted = post.DatePosted;
-            postInDb.LastDate = post.LastDate;
+            postInDb.CreateDate = post.CreateDate;
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
 
-        public ActionResult New()
-        {
-            return View();
-        }
+
         public ActionResult Delete(int id)
         {
-            var post = _dbContext.Posts.SingleOrDefault(v => v.PostID.Equals(id));
+            var post = _dbContext.Tickets.SingleOrDefault(v => v.ID.Equals(id));
 
             if (post == null)
                 return HttpNotFound();
@@ -226,12 +197,12 @@ namespace ORCA30523.Controllers
         [HttpPost]
         public ActionResult DoDelete(int id)
         {
-            var post = _dbContext.Posts.SingleOrDefault(v => v.PostID.Equals(id));
+            var post = _dbContext.Tickets.SingleOrDefault(v => v.ID.Equals(id));
 
             if (post == null)
                 return HttpNotFound();
 
-            _dbContext.Posts.Remove(post);
+            _dbContext.Tickets.Remove(post);
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index");
