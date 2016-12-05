@@ -56,11 +56,11 @@ namespace ORCA30523.Controllers
                     break;
                 case "Date":
                     posts = posts.OrderBy(s => s.DatePosted);
-                    posts = posts.OrderBy(s => s.CreateDate);
+                    //posts = posts.OrderBy(s => s.CreateDate);
                     break;
                 case "date_desc":
                     posts = posts.OrderByDescending(s => s.DatePosted);
-                    posts = posts.OrderByDescending(s => s.CreateDate);
+                    //posts = posts.OrderByDescending(s => s.CreateDate);
                     break;
                 default:
                     posts = posts.OrderBy(s => s.ToEmail);
@@ -186,7 +186,7 @@ namespace ORCA30523.Controllers
 
         public ActionResult Delete(int id)
         {
-            var post = _dbContext.Tickets.SingleOrDefault(v => v.ID.Equals(id));
+            var post = _dbContext.Tickets.SingleOrDefault(v => v.ID == id);
 
             if (post == null)
                 return HttpNotFound();
@@ -197,7 +197,7 @@ namespace ORCA30523.Controllers
         [HttpPost]
         public ActionResult DoDelete(int id)
         {
-            var post = _dbContext.Tickets.SingleOrDefault(v => v.ID.Equals(id));
+            var post = _dbContext.Tickets.SingleOrDefault(v => v.ID == id);
 
             if (post == null)
                 return HttpNotFound();
