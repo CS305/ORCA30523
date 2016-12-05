@@ -98,6 +98,20 @@ namespace ORCA30523.Controllers
             return View(posts.ToPagedList(pageNumber, pageSize));
         }
 
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = _dbContext.Posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
+        }
+
         // GET: Posts/Create
         public ActionResult Create()
         {
@@ -106,37 +120,37 @@ namespace ORCA30523.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Post post)
+        public ActionResult Create([Bind(Include = "ToEmail,FromEmail,Subject,Body,DatePosted,LastDate")]Post post)
         {
-            //try
-            //{
+            try
+            {
 
-            //    if (ModelState.IsValid)
-            //    {
+               // if (ModelState.IsValid)
+                //{
                     _dbContext.Posts.Add(post);
                     _dbContext.SaveChanges();
                     return RedirectToAction("Index");
-            //    }
-            // }
-            //catch (RetryLimitExceededException /* dex */)
-            //{
-            //    //Log the error (uncomment dex variable name and add a line here to write a log.
-            //    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            //}
+        //}
+    }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
 
-            //return View(post);
+            return View(post);
         }
 
 
 
 
 
-        //public ActionResult Add(Post post)
-        //{
-        //    _dbContext.Posts.Add(post);
-        //    _dbContext.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        public ActionResult Add(Post post)
+        {
+            _dbContext.Posts.Add(post);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         public ActionResult Edit(int id)
         {
@@ -175,19 +189,6 @@ namespace ORCA30523.Controllers
             return View(postToUpdate);
         }
 
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = _dbContext.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
-        }
 
         [HttpPost]
         public ActionResult Update(Post post)
@@ -209,10 +210,7 @@ namespace ORCA30523.Controllers
         }
 
 
-        public ActionResult New()
-        {
-            return View();
-        }
+
         public ActionResult Delete(int id)
         {
             var post = _dbContext.Posts.SingleOrDefault(v => v.PostID.Equals(id));

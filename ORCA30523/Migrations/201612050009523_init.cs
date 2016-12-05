@@ -3,16 +3,16 @@ namespace ORCA30523.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class removePostID : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
-            DropColumn("dbo.AspNetUsers", "PostID");
+            AddColumn("dbo.AspNetUsers", "PostID", c => c.String());
         }
         
         public override void Down()
         {
-            AddColumn("dbo.AspNetUsers", "PostID", c => c.String());
+            DropColumn("dbo.AspNetUsers", "PostID");
         }
     }
 }

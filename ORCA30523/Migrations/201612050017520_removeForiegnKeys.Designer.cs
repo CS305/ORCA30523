@@ -7,13 +7,13 @@ namespace ORCA30523.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class changeCaptcha : IMigrationMetadata
+    public sealed partial class removeForiegnKeys : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(changeCaptcha));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(removeForiegnKeys));
         
         string IMigrationMetadata.Id
         {
-            get { return "201612040629048_changeCaptcha"; }
+            get { return "201612050017520_removeForiegnKeys"; }
         }
         
         string IMigrationMetadata.Source

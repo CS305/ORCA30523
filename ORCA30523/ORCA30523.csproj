@@ -310,33 +310,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612040355189_init.cs" />
-    <Compile Include="Migrations\201612040355189_init.Designer.cs">
-      <DependentUpon>201612040355189_init.cs</DependentUpon>
+    <Compile Include="Migrations\201612050009523_init.cs" />
+    <Compile Include="Migrations\201612050009523_init.Designer.cs">
+      <DependentUpon>201612050009523_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612040416139_addPostsTable.cs" />
-    <Compile Include="Migrations\201612040416139_addPostsTable.Designer.cs">
-      <DependentUpon>201612040416139_addPostsTable.cs</DependentUpon>
+    <Compile Include="Migrations\201612050017520_removeForiegnKeys.cs" />
+    <Compile Include="Migrations\201612050017520_removeForiegnKeys.Designer.cs">
+      <DependentUpon>201612050017520_removeForiegnKeys.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612040626104_addCaptcha.cs" />
-    <Compile Include="Migrations\201612040626104_addCaptcha.Designer.cs">
-      <DependentUpon>201612040626104_addCaptcha.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612040629048_changeCaptcha.cs" />
-    <Compile Include="Migrations\201612040629048_changeCaptcha.Designer.cs">
-      <DependentUpon>201612040629048_changeCaptcha.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612042112308_removeCaptcha.cs" />
-    <Compile Include="Migrations\201612042112308_removeCaptcha.Designer.cs">
-      <DependentUpon>201612042112308_removeCaptcha.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612042207204_changeDateTime.cs" />
-    <Compile Include="Migrations\201612042207204_changeDateTime.Designer.cs">
-      <DependentUpon>201612042207204_changeDateTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612042210516_removePostID.cs" />
-    <Compile Include="Migrations\201612042210516_removePostID.Designer.cs">
-      <DependentUpon>201612042210516_removePostID.cs</DependentUpon>
+    <Compile Include="Migrations\201612050020567_removeforiegnkeys2.cs" />
+    <Compile Include="Migrations\201612050020567_removeforiegnkeys2.Designer.cs">
+      <DependentUpon>201612050020567_removeforiegnkeys2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -349,29 +333,16 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612040355189_init.resx">
-      <DependentUpon>201612040355189_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612050009523_init.resx">
+      <DependentUpon>201612050009523_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612040416139_addPostsTable.resx">
-      <DependentUpon>201612040416139_addPostsTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612050017520_removeForiegnKeys.resx">
+      <DependentUpon>201612050017520_removeForiegnKeys.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612040626104_addCaptcha.resx">
-      <DependentUpon>201612040626104_addCaptcha.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612040629048_changeCaptcha.resx">
-      <DependentUpon>201612040629048_changeCaptcha.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612042112308_removeCaptcha.resx">
-      <DependentUpon>201612042112308_removeCaptcha.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612042207204_changeDateTime.resx">
-      <DependentUpon>201612042207204_changeDateTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612042210516_removePostID.resx">
-      <DependentUpon>201612042210516_removePostID.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612050020567_removeforiegnkeys2.resx">
+      <DependentUpon>201612050020567_removeforiegnkeys2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

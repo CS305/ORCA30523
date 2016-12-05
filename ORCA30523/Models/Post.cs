@@ -19,8 +19,12 @@ namespace ORCA30523.Models
 
         [Display(Name = "From: ")]
         public string FromEmail { get; set; }
-        public string DatePosted { get; set; }
-        public string LastDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DatePosted { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime LastDate { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }
 }
