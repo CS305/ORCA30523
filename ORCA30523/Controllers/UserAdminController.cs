@@ -1,4 +1,5 @@
 ﻿using IdentitySample.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Data.Entity;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace IdentitySample.Controllers
 {
     public class UsersAdminController : Controller
     {
-        private ApplicationDbContext _dbContext;
+        private ApplicationDbContext _dbContext; 
         public UsersAdminController()
         {
             _dbContext = new ApplicationDbContext();
@@ -52,15 +53,22 @@ namespace IdentitySample.Controllers
 
         //
         // GET: /Users/
-        public async Task<ActionResult> Index(string stringName)
+        public async Task<ActionResult> Index()
         {
-            var experts = from m in _dbContext.Users
+            var experts = from m in _dbContext.Users.Where(m => m.register != 0 && !m.Roles.Select(y => y.RoleId).Contains("ea07d5c7-466b-4c48-ac1d-3df199ae8cd8"))
                           select m;
-            if (!string.IsNullOrEmpty(stringName))
-            {
-                experts = experts.Where(s => s.register.ToString().Equals(stringName));
-            }
+            //if (!string.IsNullOrEmpty(stringName))
+            //{
+            //    experts = experts.Where(s => s.register.ToString().Equals(stringName));
+            //}
             return View(await experts.ToListAsync());
+        }
+
+        public async Task<ActionResult> Index2()
+        {
+            var experts2 = from t in _dbContext.Users
+                           select t;
+            return View(await experts2.ToListAsync());
         }
 
         //
