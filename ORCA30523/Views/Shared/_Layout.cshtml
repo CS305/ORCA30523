@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+@using IdentitySample.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -34,10 +36,17 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        @{ 
+                            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+                            var currentUser = manager.FindById(User.Identity.GetUserId());
+                            var user = User.Identity.GetUserName();
+                        }
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        <li>@Html.ActionLink("Messages", "Index", "Ticket")</li>
-
+                        @if (user != null)
+                        {
+                        <li>@Html.ActionLink("Messages", "Index", "Ticket", routeValues: new { searchString = currentUser.Email }, htmlAttributes: null)</li>
+                        }
                         @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                         {
                             <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>

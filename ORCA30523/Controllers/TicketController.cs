@@ -1,16 +1,15 @@
 ﻿using IdentitySample.Models;
 using PagedList;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ORCA30523.Models;
 using System.Net;
 using System.Data;
 using System.Data.Entity.Infrastructure;
-using System.Web.UI.WebControls;
-using System.Data.Entity.Validation;
+using System.Data.Entity;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace ORCA30523.Controllers
 {
@@ -25,7 +24,7 @@ namespace ORCA30523.Controllers
         }
         // GET: Message
         [Authorize]
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page, string class2)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -42,7 +41,7 @@ namespace ORCA30523.Controllers
 
             ViewBag.CurrentFilter = searchString;
             var posts = from s in _dbContext.Tickets
-                           select s;
+                        select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 posts = posts.Where(s => s.ToEmail.Contains(searchString)
@@ -95,6 +94,8 @@ namespace ORCA30523.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ToEmail,FromEmail,Subject,Body,DatePosted,LastDate")]Ticket post)
         {
+            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
             try
             {
 
@@ -102,7 +103,7 @@ namespace ORCA30523.Controllers
                 //{
                     _dbContext.Tickets.Add(post);
                     _dbContext.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", routeValues: new { searchString = currentUser.Email });
         //}
     }
             catch (RetryLimitExceededException /* dex */)
@@ -120,13 +121,16 @@ namespace ORCA30523.Controllers
 
         public ActionResult Add(Ticket post)
         {
+            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
             _dbContext.Tickets.Add(post);
             _dbContext.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", routeValues: new { searchString = currentUser.Email });
         }
 
         public ActionResult Edit(int id)
         {
+
             var post = _dbContext.Tickets.SingleOrDefault(v => v.ID.Equals(id));
 
             if (post == null)
@@ -139,6 +143,8 @@ namespace ORCA30523.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
         {
+            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -151,7 +157,7 @@ namespace ORCA30523.Controllers
                 {
                     _dbContext.SaveChanges();
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index" , routeValues: new { searchString = currentUser.Email});
                 }
                 catch (RetryLimitExceededException /* dex */)
                 {
@@ -166,6 +172,8 @@ namespace ORCA30523.Controllers
         [HttpPost]
         public ActionResult Update(Ticket post)
         {
+            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
             var postInDb = _dbContext.Tickets.SingleOrDefault(v => v.ID.Equals(post.ID));
 
             if (postInDb == null)
@@ -179,7 +187,7 @@ namespace ORCA30523.Controllers
             postInDb.CreateDate = post.CreateDate;
             _dbContext.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", routeValues: new { searchString = currentUser.Email });
         }
 
 
@@ -197,6 +205,8 @@ namespace ORCA30523.Controllers
         [HttpPost]
         public ActionResult DoDelete(int id)
         {
+            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
             var post = _dbContext.Tickets.SingleOrDefault(v => v.ID.Equals(id));
 
             if (post == null)
@@ -205,7 +215,7 @@ namespace ORCA30523.Controllers
             _dbContext.Tickets.Remove(post);
             _dbContext.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",routeValues: new { searchString = currentUser.Email });
         }
 
         protected override void Dispose(bool disposing)
