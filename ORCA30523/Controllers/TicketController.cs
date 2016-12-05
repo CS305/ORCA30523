@@ -26,6 +26,8 @@ namespace ORCA30523.Controllers
         [Authorize]
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page, string class2)
         {
+            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
@@ -40,7 +42,7 @@ namespace ORCA30523.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-            var posts = from s in _dbContext.Tickets
+            var posts = from s in _dbContext.Tickets.Where(s => s.ToEmail.Equals(currentUser.Email) || s.FromEmail.Equals(currentUser.Email))
                         select s;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -103,7 +105,7 @@ namespace ORCA30523.Controllers
                 //{
                     _dbContext.Tickets.Add(post);
                     _dbContext.SaveChanges();
-                    return RedirectToAction("Index", routeValues: new { searchString = currentUser.Email });
+                    return RedirectToAction("Index"/*, routeValues: new { searchString = currentUser.Email }*/);
         //}
     }
             catch (RetryLimitExceededException /* dex */)
@@ -125,7 +127,7 @@ namespace ORCA30523.Controllers
             var currentUser = manager.FindById(User.Identity.GetUserId());
             _dbContext.Tickets.Add(post);
             _dbContext.SaveChanges();
-            return RedirectToAction("Index", routeValues: new { searchString = currentUser.Email });
+            return RedirectToAction("Index"/*, routeValues: new { searchString = currentUser.Email }*/);
         }
 
         public ActionResult Edit(int id)
@@ -157,7 +159,7 @@ namespace ORCA30523.Controllers
                 {
                     _dbContext.SaveChanges();
 
-                    return RedirectToAction("Index" , routeValues: new { searchString = currentUser.Email});
+                    return RedirectToAction("Index" /*, routeValues: new { searchString = currentUser.Email}*/);
                 }
                 catch (RetryLimitExceededException /* dex */)
                 {
@@ -187,7 +189,7 @@ namespace ORCA30523.Controllers
             postInDb.CreateDate = post.CreateDate; 
             _dbContext.SaveChanges();
 
-            return RedirectToAction("Index", routeValues: new { searchString = currentUser.Email });
+            return RedirectToAction("Index"/*, routeValues: new { searchString = currentUser.Email }*/);
         }
 
 
@@ -215,7 +217,7 @@ namespace ORCA30523.Controllers
             _dbContext.Tickets.Remove(post);
             _dbContext.SaveChanges();
 
-            return RedirectToAction("Index",routeValues: new { searchString = currentUser.Email });
+            return RedirectToAction("Index"/*,routeValues: new { searchString = currentUser.Email }*/);
         }
 
         protected override void Dispose(bool disposing)

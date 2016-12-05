@@ -45,12 +45,16 @@
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         @if (user != null)
                         {
-                        <li>@Html.ActionLink("Messages", "Index", "Ticket", routeValues: new { searchString = currentUser.Email }, htmlAttributes: null)</li>
+                        <li>@Html.ActionLink("Messages", "Index", "Ticket"@*, routeValues: new { searchString = currentUser.Email }, htmlAttributes: null*@)</li>
+                        }
+                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                        <li>@Html.ActionLink("UsersAdmin", "Index2", "UsersAdmin"@*, routeValues: new { searchString = currentUser.Email }, htmlAttributes: null*@)</li>
                         }
                         @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                         {
                             <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
-                            <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin", routeValues: new { stringName = "Expert" }, htmlAttributes: null)</li>
+                            <li>@Html.ActionLink("Validate", "Index", "UsersAdmin"@*, routeValues: new { stringName = "Expert" }, htmlAttributes: null*@)</li>
                         }
                     </ul>
                     @Html.Partial("_LoginPartial")

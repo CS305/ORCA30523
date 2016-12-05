@@ -1,9 +1,13 @@
 ﻿@model PagedList.IPagedList<ORCA30523.Models.Ticket>
 @using PagedList.Mvc;
+@using Microsoft.AspNet.Identity
+@using IdentitySample.Models 
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Posts";
+    var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var currentUser = manager.FindById(User.Identity.GetUserId());
 }
 
 <h2>Posts</h2>
@@ -41,6 +45,8 @@
 
     @foreach (var item in Model)
     {
+        if (currentUser.Email.Equals(item.FromEmail) || currentUser.Email.Equals(item.ToEmail))
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ToEmail)
@@ -63,6 +69,7 @@
                 @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
             </td>
         </tr>
+        }
     }
 
 </table>
