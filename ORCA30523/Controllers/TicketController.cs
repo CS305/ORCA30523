@@ -103,10 +103,10 @@ namespace ORCA30523.Controllers
             {
                 Body = model.Body,
                 Subject = model.Subject,
-                CreateDate = DateTime.UtcNow.ToString(),
+                CreateDate = DateTime.Now.ToString(),
                 FromEmail = User.Identity.GetUserName(),
                 ToEmail = model.ToEmail,
-                DatePosted = model.DatePosted
+                DatePosted = DateTime.Now.ToString()
             };
             if (ModelState.IsValid)
             {
@@ -195,7 +195,7 @@ namespace ORCA30523.Controllers
             }
             var postToUpdate = _dbContext.Tickets.Find(id);
             if (TryUpdateModel(postToUpdate, "",
-               new string[] { "Subject", "Body", "ToEmail", "FromEmail", "PostDate", "LastDate" }))
+               new string[] { "Subject", "Body", "ToEmail", "FromEmail", "CreateDate", "DatePosted" }))
             {
                 try
                 {
