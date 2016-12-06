@@ -13,7 +13,7 @@
 <h2>Tickets</h2>
 
 @*<p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Respond")
 </p>*@
 @using (Html.BeginForm("Index", "Ticket", FormMethod.Get))
 {
@@ -65,7 +65,7 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Respond","Respond", new { id=item.ID})
+                @Html.ActionLink("Respond","Respond", new { receiver = item.FromEmail})
                 @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
                 @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
             </td>

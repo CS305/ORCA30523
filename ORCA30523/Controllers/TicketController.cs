@@ -114,13 +114,34 @@ namespace ORCA30523.Controllers
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //var errors = ModelState.Values.SelectMany(v => v.Errors);
             return View(ticket);
         }
-        public ActionResult Respond(int id)
+        public ActionResult Respond(string receiver)
         {
-            return View();
+            ViewBag.ToEmail = receiver; 
+            return View(); 
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Respond(Ticket post)
+        {
+            var respond = new Ticket
+            {
+                Body = post.Body,
+                Subject = "response", 
+                FromEmail = User.Identity.GetUserName(),
+                ToEmail = post.ToEmail,
+                DatePosted = DateTime.Now.ToString()
+            };
+            if (ModelState.IsValid)
+            {
+                _dbContext.Tickets.Add(respond);
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(respond);
+        }
+
         //    public ActionResult Create([Bind(Include = "ToEmail,FromEmail,Subject,Body,DatePosted,LastDate")]Ticket post)
         //    {
         //        var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
