@@ -121,9 +121,6 @@ namespace ORCA30523.Controllers
         {
             return View();
         }
-
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
         //    public ActionResult Create([Bind(Include = "ToEmail,FromEmail,Subject,Body,DatePosted,LastDate")]Ticket post)
         //    {
         //        var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
