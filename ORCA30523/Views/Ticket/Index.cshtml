@@ -13,14 +13,14 @@
 <h2>Tickets</h2>
 
 @*<p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Respond")
 </p>*@
 @using (Html.BeginForm("Index", "Ticket", FormMethod.Get))
 {
-    @*<p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+    <p>
+        Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string) 
         <input type="submit" value="Search" />
-    </p>*@
+    </p>
 }
 <table class="table">
     <tr>
@@ -65,18 +65,15 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Respond","Respond", new { id=item.ID})
-                @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
-                @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                @Html.ActionLink("Respond","Respond", new { receiver = item.FromEmail}) |
+                @Html.ActionLink("View Message", "Details", new { id = item.ID }) | 
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>
         }
     }
-
 </table>
 <br />
-
-
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 

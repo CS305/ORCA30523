@@ -23,11 +23,11 @@
 
 <tr>
     <th>
-        @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        @Html.ActionLink("Sort by last name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
     </th>
     <th></th>
 </tr>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+@*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
 <!DOCTYPE html>
 <html>
 <head>
@@ -162,8 +162,9 @@
     }
 }
 </html>
-<div style="position: relative;width: 150px; height: 425px;">    
+<div style="position: relative;width: 300px; height: 450px;">    
     <div style="position: absolute; bottom: 5px;">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     </div>
 </div>

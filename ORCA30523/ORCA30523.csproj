@@ -225,6 +225,7 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\UsersAdmin\Index2.cshtml" />
     <Content Include="Views\Ticket\Respond.cshtml" />
+    <Content Include="Views\Ticket\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -324,6 +325,14 @@
     <Compile Include="Migrations\201612050228290_addTicketTableAgain.Designer.cs">
       <DependentUpon>201612050228290_addTicketTableAgain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612060433076_final.cs" />
+    <Compile Include="Migrations\201612060433076_final.Designer.cs">
+      <DependentUpon>201612060433076_final.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612060434264_final1.cs" />
+    <Compile Include="Migrations\201612060434264_final1.Designer.cs">
+      <DependentUpon>201612060434264_final1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -331,6 +340,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Respond.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -345,6 +355,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612050228290_addTicketTableAgain.resx">
       <DependentUpon>201612050228290_addTicketTableAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612060433076_final.resx">
+      <DependentUpon>201612060433076_final.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612060434264_final1.resx">
+      <DependentUpon>201612060434264_final1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
