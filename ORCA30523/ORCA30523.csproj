@@ -224,6 +224,7 @@
     <Content Include="Views\Ticket\Delete.cshtml" />
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\UsersAdmin\Index2.cshtml" />
+    <Content Include="Views\Ticket\Respond.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
