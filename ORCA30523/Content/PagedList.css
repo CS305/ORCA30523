@@ -53,7 +53,8 @@
   color: #ffffff;
   cursor: default;
   background-color: #999999;
-  border-color: #428bca;
+  /*border-color: #428bca;*/
+  border-color: #000000;
 }
 
 .pagination > .disabled > span,
