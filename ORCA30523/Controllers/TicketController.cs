@@ -87,35 +87,56 @@ namespace ORCA30523.Controllers
         }
 
         // GET: Posts/Create
-        public ActionResult Create()
+        public ActionResult Create(Ticket model, string class2)
         {
-            return View();
-        }
+            //var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            //var currentUser = manager.FindById(User.Identity.GetUserId());
+            //var user = User.Identity.GetUserName();
+                var ticket = new Ticket
+                {
+                    Body = model.Body,
+                    Subject = model.Subject,
+                    CreateDate = DateTime.Now.ToString(),
+                    FromEmail = User.Identity.GetUserName(),
+                    ToEmail = class2, 
+                    DatePosted = model.DatePosted
+                };
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ToEmail,FromEmail,Subject,Body,DatePosted,LastDate")]Ticket post)
-        {
-            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var currentUser = manager.FindById(User.Identity.GetUserId());
-            try
-            {
 
-               // if (ModelState.IsValid)
-                //{
-                    _dbContext.Tickets.Add(post);
+                if (ModelState.IsValid)
+                {
+                    _dbContext.Tickets.Add(ticket);
                     _dbContext.SaveChanges();
-                    return RedirectToAction("Index"/*, routeValues: new { searchString = currentUser.Email }*/);
-        //}
-    }
-            catch (RetryLimitExceededException /* dex */)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+                }
+
+                //var errors = ModelState.Values.SelectMany(v => v.Errors);
+                return View(ticket);
             }
 
-            return View(post);
-        }
+    //    [HttpPost]
+    //    [ValidateAntiForgeryToken]
+    //    public ActionResult Create([Bind(Include = "ToEmail,FromEmail,Subject,Body,DatePosted,LastDate")]Ticket post)
+    //    {
+    //        var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+    //        var currentUser = manager.FindById(User.Identity.GetUserId());
+    //        try
+    //        {
+
+    //           // if (ModelState.IsValid)
+    //            //{
+    //                _dbContext.Tickets.Add(post);
+    //                _dbContext.SaveChanges();
+    //                return RedirectToAction("Index"/*, routeValues: new { searchString = currentUser.Email }*/);
+    //    //}
+    //}
+    //        catch (RetryLimitExceededException /* dex */)
+    //        {
+    //            //Log the error (uncomment dex variable name and add a line here to write a log.
+    //            ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+    //        }
+
+    //        return View(post);
+    //    }
 
 
 
