@@ -10,11 +10,11 @@
     var currentUser = manager.FindById(User.Identity.GetUserId());
 }
 
-<h2>Posts</h2>
+<h2>Tickets</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 @using (Html.BeginForm("Index", "Ticket", FormMethod.Get))
 {
     @*<p>
@@ -64,7 +64,8 @@
                 @Html.DisplayFor(modelItem => item.CreateDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) @*|*@
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Respond","Respond", new { id=item.ID})
                 @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
                 @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
             </td>

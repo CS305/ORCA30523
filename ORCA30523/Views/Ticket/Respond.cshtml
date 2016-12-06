@@ -1,0 +1,33 @@
+﻿@model ORCA30523.Models.Ticket
+@using Microsoft.AspNet.Identity 
+@using IdentitySample.Models
+
+@{
+    ViewBag.Title = "Respond";
+    var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var currentUser = manager.FindById(User.Identity.GetUserId());
+}
+
+<h2>Respond</h2>
+<div class="form-group">
+    @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+    </div>
+</div>
+<script>
+    var saved = ("#Subject").val(data.Subject);
+    Response.Write(saved)
+</script>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Respond" class="btn btn-default" />
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+

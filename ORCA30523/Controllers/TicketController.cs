@@ -85,46 +85,69 @@ namespace ORCA30523.Controllers
             }
             return View(post);
         }
+        public ActionResult Create(string class2)
+        { 
+            ViewBag.ToEmail = class2;
+            return View();
+        }
 
         // GET: Posts/Create
-        public ActionResult Create()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Ticket model)
+        {
+            //var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+            //var currentUser = manager.FindById(User.Identity.GetUserId());
+            //var user = User.Identity.GetUserName();
+            var ticket = new Ticket
+            {
+                Body = model.Body,
+                Subject = model.Subject,
+                CreateDate = DateTime.Now.ToString(),
+                FromEmail = User.Identity.GetUserName(),
+                ToEmail = model.ToEmail,
+                DatePosted = model.DatePosted
+            };
+            if (ModelState.IsValid)
+            {
+                _dbContext.Tickets.Add(ticket);
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            //var errors = ModelState.Values.SelectMany(v => v.Errors);
+            return View(ticket);
+        }
+        public ActionResult Respond(int id)
         {
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ToEmail,FromEmail,Subject,Body,DatePosted,LastDate")]Ticket post)
-        {
-            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var currentUser = manager.FindById(User.Identity.GetUserId());
-            try
-            {
+        //    [HttpPost]
+        //    [ValidateAntiForgeryToken]
+        //    public ActionResult Create([Bind(Include = "ToEmail,FromEmail,Subject,Body,DatePosted,LastDate")]Ticket post)
+        //    {
+        //        var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+        //        var currentUser = manager.FindById(User.Identity.GetUserId());
+        //        try
+        //        {
 
-               // if (ModelState.IsValid)
-                //{
-                    _dbContext.Tickets.Add(post);
-                    _dbContext.SaveChanges();
-                    return RedirectToAction("Index"/*, routeValues: new { searchString = currentUser.Email }*/);
+        //           // if (ModelState.IsValid)
+        //            //{
+        //                _dbContext.Tickets.Add(post);
+        //                _dbContext.SaveChanges();
+        //                return RedirectToAction("Index"/*, routeValues: new { searchString = currentUser.Email }*/);
+        //    //}
         //}
-    }
-            catch (RetryLimitExceededException /* dex */)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            }
+        //        catch (RetryLimitExceededException /* dex */)
+        //        {
+        //            //Log the error (uncomment dex variable name and add a line here to write a log.
+        //            ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+        //        }
 
-            return View(post);
-        }
-
-
-
-
-
+        //        return View(post);
+        //    }
         public ActionResult Add(Ticket post)
         {
-            var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var currentUser = manager.FindById(User.Identity.GetUserId());
             _dbContext.Tickets.Add(post);
             _dbContext.SaveChanges();
             return RedirectToAction("Index"/*, routeValues: new { searchString = currentUser.Email }*/);
