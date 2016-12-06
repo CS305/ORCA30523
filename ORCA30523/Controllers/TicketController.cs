@@ -104,7 +104,7 @@ namespace ORCA30523.Controllers
 
 
                 if (ModelState.IsValid)
-                {
+                { 
                     _dbContext.Tickets.Add(ticket);
                     _dbContext.SaveChanges();
                 }
