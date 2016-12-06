@@ -47,7 +47,7 @@ namespace ORCA30523.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 posts = posts.Where(s => s.Subject.Contains(searchString)
-                                       || s.ToEmail.Contains(searchString));
+                            || s.ToEmail.Contains(searchString) || s.FromEmail.Contains(searchString));
             }
             switch (sortOrder)
             {
@@ -86,7 +86,7 @@ namespace ORCA30523.Controllers
             return View(post);
         }
         public ActionResult Create(string class2)
-        { 
+        {
             ViewBag.ToEmail = class2;
             return View();
         }
@@ -103,7 +103,7 @@ namespace ORCA30523.Controllers
             {
                 Body = model.Body,
                 Subject = model.Subject,
-                CreateDate = DateTime.Now.ToString(),
+                CreateDate = DateTime.UtcNow.ToString(),
                 FromEmail = User.Identity.GetUserName(),
                 ToEmail = model.ToEmail,
                 DatePosted = model.DatePosted
@@ -118,8 +118,8 @@ namespace ORCA30523.Controllers
         }
         public ActionResult Respond(string receiver)
         {
-            ViewBag.ToEmail = receiver; 
-            return View(); 
+            ViewBag.ToEmail = receiver;
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -128,9 +128,10 @@ namespace ORCA30523.Controllers
             var respond = new Ticket
             {
                 Body = post.Body,
-                Subject = "response", 
+                Subject = "RE:",
                 FromEmail = User.Identity.GetUserName(),
                 ToEmail = post.ToEmail,
+                CreateDate = DateTime.Now.ToString(),
                 DatePosted = DateTime.Now.ToString()
             };
             if (ModelState.IsValid)
@@ -227,7 +228,7 @@ namespace ORCA30523.Controllers
             postInDb.ToEmail = post.ToEmail;
             postInDb.FromEmail = post.FromEmail;
             postInDb.DatePosted = post.DatePosted;
-            postInDb.CreateDate = post.CreateDate; 
+            postInDb.CreateDate = post.CreateDate;
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index"/*, routeValues: new { searchString = currentUser.Email }*/);
