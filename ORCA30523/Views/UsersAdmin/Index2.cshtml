@@ -1,25 +1,37 @@
-﻿@model IEnumerable<IdentitySample.Models.ApplicationUser>
+﻿@model PagedList.IPagedList<IdentitySample.Models.ApplicationUser>
+@using Microsoft.AspNet.Identity
+@using IdentitySample.Models
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     IdentitySample.Models.EditUserViewModel editUser = new IdentitySample.Models.EditUserViewModel();
     ViewBag.Title = "Index";
 }
-<h2>Index</h2>
+<h2>All Users</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+    <input type="submit" value="Search" />
+</p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserName)
+            @*@Html.ActionLink("User Email", "Index2", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            User Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.firstName)
+            @*@Html.ActionLink("First Name", "Index2", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            First Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.lastName)
+            @*@Html.ActionLink("Last Name", "Index2", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            Last Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.register)
+            @Html.ActionLink("Register", "Index2", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
         </th>
@@ -50,3 +62,7 @@
     }
 
 </table>
+@Html.PagedListPager(Model, page => Url.Action("Index2",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
