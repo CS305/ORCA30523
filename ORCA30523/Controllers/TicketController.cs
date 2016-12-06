@@ -86,7 +86,7 @@ namespace ORCA30523.Controllers
             return View(post);
         }
         public ActionResult Create(string class2)
-        {
+        { 
             ViewBag.ToEmail = class2;
             return View();
         }
