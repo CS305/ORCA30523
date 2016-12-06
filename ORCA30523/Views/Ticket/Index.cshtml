@@ -18,7 +18,7 @@
 @using (Html.BeginForm("Index", "Ticket", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }

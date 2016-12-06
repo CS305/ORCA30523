@@ -46,8 +46,8 @@ namespace ORCA30523.Controllers
                         select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                posts = posts.Where(s => s.ToEmail.Contains(searchString)
-                                       || s.FromEmail.Contains(searchString));
+                posts = posts.Where(s => s.Subject.Contains(searchString)
+                                       || s.ToEmail.Contains(searchString));
             }
             switch (sortOrder)
             {
