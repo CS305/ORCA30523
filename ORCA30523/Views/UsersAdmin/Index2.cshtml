@@ -64,7 +64,7 @@
 </table>
 <div style="position: relative;width: 100%; height: 170px; color:#079449">
     <div style="position: absolute; bottom: 5px; color:#079449">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter } ))
+        @Html.PagedListPager(Model, page => Url.Action("Index2", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter } ))
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     </div>
 </div>
