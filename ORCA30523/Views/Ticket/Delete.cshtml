@@ -7,7 +7,7 @@
 
 <h2 style="color:#079449;">Delete</h2>
 <p>
-    Are you sure you would like to delete this appointment?
+    Are you sure you would like to delete this message?
 </p>
 <ul style="background-color:white">
     <li>To: @Model.ToEmail</li>
@@ -18,5 +18,5 @@
 {
     @Html.HiddenFor(m => m.ID)
     <input type="submit" class="btn btn-danger" value="Yes, Delete it!" />
-    @Html.ActionLink("No, back to tickets", "Index")
+    @Html.ActionLink("No, back to messages", "Index")
 }

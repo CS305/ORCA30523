@@ -90,7 +90,7 @@ namespace IdentitySample.Controllers
             switch (sortOrder)
             {
                 case "name_desc":
-                    experts2 = experts2.OrderByDescending(s => s.register);
+                    experts2 = experts2.OrderBy(s => s.register);
                     //experts2 = experts2.OrderByDescending(s => s.register);
                     break;
                 //case "register_desc":
@@ -100,7 +100,7 @@ namespace IdentitySample.Controllers
                     //experts2 = experts2.OrderByDescending(s => s.register);
                     //break;
                 default:
-                    experts2 = experts2.OrderBy(s => s.register);
+                    experts2 = experts2.OrderByDescending(s => s.register);
                     break;
             }
             int pageSize = 6;
