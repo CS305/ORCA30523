@@ -49,11 +49,11 @@
                         }
                         @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                         {
-                        <li>@Html.ActionLink("UsersAdmin", "Index2", "UsersAdmin"@*, routeValues: new { searchString = currentUser.Email }, htmlAttributes: null*@)</li>
+                        <li>@Html.ActionLink("Users", "Index2", "UsersAdmin"@*, routeValues: new { searchString = currentUser.Email }, htmlAttributes: null*@)</li>
                         }
                         @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                         {
-                            <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "RolesAdmin")</li>
                             <li>@Html.ActionLink("Validate", "Index", "UsersAdmin"@*, routeValues: new { stringName = "Expert" }, htmlAttributes: null*@)</li>
                         }
                     </ul>

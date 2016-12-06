@@ -1,6 +1,8 @@
 ﻿using IdentitySample.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using PagedList;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -64,11 +66,46 @@ namespace IdentitySample.Controllers
             return View(await experts.ToListAsync());
         }
 
-        public async Task<ActionResult> Index2()
+        public ViewResult Index2(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "register_desc" : "Register";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
             var experts2 = from t in _dbContext.Users
                            select t;
-            return View(await experts2.ToListAsync());
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                experts2 = experts2.Where(s => s.lastName.Contains(searchString) || s.firstName.Contains(searchString) ||
+                s.register.Equals(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    experts2 = experts2.OrderByDescending(s => s.register);
+                    //experts2 = experts2.OrderByDescending(s => s.register);
+                    break;
+                //case "register_desc":
+                    //experts2 = experts2.OrderBy(s => s.register);
+                    //break;
+                //case "Register":
+                    //experts2 = experts2.OrderByDescending(s => s.register);
+                    //break;
+                default:
+                    experts2 = experts2.OrderBy(s => s.register);
+                    break;
+            }
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            return View(experts2.ToPagedList(pageNumber, pageSize));
         }
 
         //
