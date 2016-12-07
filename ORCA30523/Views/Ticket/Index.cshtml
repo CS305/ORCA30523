@@ -71,7 +71,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Respond","Respond", new {receiver = item.FromEmail}) |
-                @Html.ActionLink("View Message", "Details", new { id = item.ID , receiver = item.ToEmail , from1 = item.FromEmail }) | 
+                @Html.ActionLink("View Message", "Details", new { receiver = item.ToEmail , from1 = item.FromEmail }) | 
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>

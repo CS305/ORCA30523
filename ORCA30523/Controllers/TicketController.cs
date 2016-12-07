@@ -72,7 +72,7 @@ namespace ORCA30523.Controllers
             return View(posts.ToPagedList(pageNumber, pageSize));
         }
 
-        public ViewResult Details(int? id, string receiver, string from1)
+        public ViewResult Details(string receiver, string from1)
         {
             var adam = from s in _dbContext.Tickets.Where(s => s.ToEmail.Equals(from1) && s.FromEmail.Equals(receiver) || s.FromEmail.Equals(from1) && s.ToEmail.Equals(receiver))
                        select s;
@@ -133,7 +133,7 @@ namespace ORCA30523.Controllers
                 Subject = "RE:",
                 FromEmail = User.Identity.GetUserName(),
                 ToEmail = post.ToEmail,
-                //CreateDate = DateTime.Now.ToString(),
+                CreateDate = DateTime.Now.ToString(),
                 DatePosted = DateTime.Now.ToString()
             };
 
