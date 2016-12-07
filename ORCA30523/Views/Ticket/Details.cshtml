@@ -1,4 +1,4 @@
-﻿@model ORCA30523.Models.Ticket
+﻿@model IEnumerable<ORCA30523.Models.Ticket>
 @{
     ViewBag.Title = "Details";
 }
@@ -7,33 +7,28 @@
 <div>
     <h4>Message.</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FromEmail)
+    </div>
+@if (Model != null)
+{
+    foreach (var experts in Model)
+    {
+    <dl class="dl-horizontal" style="width:100%">
+        <dt style="width: 100%; text-align:center;">
+            From: @experts.FromEmail
         </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FromEmail)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ToEmail) 
+        <dt style="width: 100%; text-align:center;">
+            To: @experts.ToEmail 
         </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ToEmail) 
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Subject) 
+        <dt style="width: 100%; text-align:center;">
+            Subject: @experts.Subject 
         </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Subject) 
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Body) 
+        <dt style="width: 100%; text-align:center;">
+            Body: @experts.Body 
         </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Body) 
-        </dd> 
+        <dt style="width: 100%; text-align:center;">
+            ------------------------------------------------------------------ 
+        </dt>
     </dl>
-</div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    }
+}
+    @*@Html.ActionLink("Back to List", "Index")*@

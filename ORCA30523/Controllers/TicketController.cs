@@ -72,18 +72,20 @@ namespace ORCA30523.Controllers
             return View(posts.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult Details(int? id)
+        public ViewResult Details(int? id, string receiver, string from1)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Ticket post = _dbContext.Tickets.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
+            var adam = from s in _dbContext.Tickets.Where(s => s.ToEmail.Equals(from1) && s.FromEmail.Equals(receiver) || s.FromEmail.Equals(from1) && s.ToEmail.Equals(receiver))
+                       select s;
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Ticket post = _dbContext.Tickets.Find(id);
+            //if (post == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View(adam);
         }
         public ActionResult Create(string class2)
         {
@@ -134,6 +136,7 @@ namespace ORCA30523.Controllers
                 CreateDate = DateTime.Now.ToString(),
                 DatePosted = DateTime.Now.ToString()
             };
+
             if (ModelState.IsValid)
             {
                 _dbContext.Tickets.Add(respond);
