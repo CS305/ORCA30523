@@ -133,7 +133,7 @@ namespace ORCA30523.Controllers
                 Subject = "RE:",
                 FromEmail = User.Identity.GetUserName(),
                 ToEmail = post.ToEmail,
-                CreateDate = DateTime.Now.ToString(),
+                //CreateDate = DateTime.Now.ToString(),
                 DatePosted = DateTime.Now.ToString()
             };
 
