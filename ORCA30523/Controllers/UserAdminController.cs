@@ -68,7 +68,10 @@ namespace IdentitySample.Controllers
         public ViewResult Index2(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "email" : "";
+            ViewBag.NameSortParm2 = sortOrder == "firstName2" ? "firstName" : "firstName2";
+            ViewBag.NameSortParm3 = sortOrder == "lastName2" ? "lastName" : "lastName2";
+            ViewBag.NameSortParm4 = sortOrder == "register2" ? "register" : "register2";
             //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "register_desc" : "Register";
             if (searchString != null)
             {
@@ -87,18 +90,35 @@ namespace IdentitySample.Controllers
             }
             switch (sortOrder)
             {
-                case "name_desc":
+                case "email":
+                    experts2 = experts2.OrderByDescending(s => s.Email);
+                    break;
+                case "firstName2":
+                    experts2 = experts2.OrderBy(s => s.firstName);
+                    break;
+                case "firstName":
+                    experts2 = experts2.OrderByDescending(s => s.firstName);
+                    break;
+                case "lastName2":
+                    experts2 = experts2.OrderBy(s => s.lastName);
+                    break;
+                case "lastName":
+                    experts2 = experts2.OrderByDescending(s => s.lastName);
+                    break;
+                case "register2":
+                    experts2 = experts2.OrderBy(s => s.register);
+                    break;
+                case "register":
                     experts2 = experts2.OrderByDescending(s => s.register);
-                    //experts2 = experts2.OrderByDescending(s => s.register);
                     break;
                 //case "register_desc":
-                    //experts2 = experts2.OrderBy(s => s.register);
-                    //break;
+                //experts2 = experts2.OrderBy(s => s.register);
+                //break;
                 //case "Register":
-                    //experts2 = experts2.OrderByDescending(s => s.register);
-                    //break;
+                //experts2 = experts2.OrderByDescending(s => s.register);
+                //break;
                 default:
-                    experts2 = experts2.OrderBy(s => s.register);
+                    experts2 = experts2.OrderBy(s => s.Email);
                     break;
             }
             int pageSize = 6;
