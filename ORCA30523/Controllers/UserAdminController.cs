@@ -1,5 +1,4 @@
 ﻿using IdentitySample.Models;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using PagedList;
 using System;
@@ -84,8 +83,7 @@ namespace IdentitySample.Controllers
                            select t;
             if (!String.IsNullOrEmpty(searchString))
             {
-                experts2 = experts2.Where(s => s.lastName.Contains(searchString) || s.firstName.Contains(searchString) ||
-                s.register.Equals(searchString));
+                experts2 = experts2.Where(s => s.lastName.Contains(searchString) || s.firstName.Contains(searchString));
             }
             switch (sortOrder)
             {
