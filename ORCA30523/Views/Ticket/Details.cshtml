@@ -10,23 +10,26 @@
     </div>
 @if (Model != null)
 {
-    foreach (var experts in Model)
+    foreach (var message in Model)
     {
     <dl class="dl-horizontal" style="width:100%">
         <dt style="width: 100%; text-align:center;">
-            From: @experts.FromEmail
+            From: @message.FromEmail
         </dt>
         <dt style="width: 100%; text-align:center;">
-            To: @experts.ToEmail 
+            To: @message.ToEmail 
         </dt>
         <dt style="width: 100%; text-align:center;">
-            Subject: @experts.Subject 
+            Subject: @message.Subject 
         </dt>
         <dt style="width: 100%; text-align:center;">
-            Body: @experts.Body 
+            Body: @message.Body 
         </dt>
         <dt style="width: 100%; text-align:center;">
-            ------------------------------------------------------------------ 
+            Sent: @message.DatePosted 
+        </dt>
+        <dt style="width: 100%; text-align:center;">
+            ---------------------------------------------------------------------- 
         </dt> 
     </dl>
     }
