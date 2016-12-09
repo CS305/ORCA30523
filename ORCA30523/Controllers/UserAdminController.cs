@@ -310,11 +310,11 @@ namespace IdentitySample.Controllers
                 }
                 if (User.IsInRole("Admin"))
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index2");
                 }
                 else
                 {
-                    return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+                    return RedirectToAction("Index2", new RouteValueDictionary(new { controller = "Home", action = "Index2" }));
                 }
             }
             ModelState.AddModelError("", "Something failed.");
