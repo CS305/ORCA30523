@@ -5,7 +5,6 @@ using IdentitySample.Models;
 using System;
 using System.Linq;
 using PagedList;
-using System.Web.Security;
 
 namespace IdentitySample.Controllers
 {

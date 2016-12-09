@@ -17,27 +17,29 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index2", "UsersAdmin", FormMethod.Get))
+{
 <p>
     Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
     <input type="submit" value="Search" />
 </p>
-
+}
 <table class="table">
     <tr>
         <th>
-            @*@Html.ActionLink("User Email", "Index2", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
-            User Email
+            @Html.ActionLink("User Email", "Index2", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @*User Email*@
         </th>
         <th>
-            @*@Html.ActionLink("First Name", "Index2", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
-            First Name
+            @Html.ActionLink("First Name", "Index2", new { sortOrder = ViewBag.NameSortParm2, currentFilter = ViewBag.CurrentFilter })
+            @*First Name*@
         </th>
         <th>
-            @*@Html.ActionLink("Last Name", "Index2", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
-            Last Name
+            @Html.ActionLink("Last Name", "Index2", new { sortOrder = ViewBag.NameSortParm3, currentFilter = ViewBag.CurrentFilter })
+            @*Last Name*@
         </th>
         <th>
-            @Html.ActionLink("Register", "Index2", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Register", "Index2", new { sortOrder = ViewBag.NameSortParm4, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
         </th>
@@ -68,9 +70,16 @@
     }
 
 </table>
-<div style="position: relative;width: 100%; height: 170px; color:#079449">
+<footer>
+    <p style="width:100%">
+        @Html.PagedListPager(Model, page => Url.Action("Index2", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    <p style="color: #079449;">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </p>
+</footer>
+@*<div style="position: relative;width: 100%; height: 170px; color:#079449">
     <div style="position: absolute; bottom: 5px; color:#079449">
         @Html.PagedListPager(Model, page => Url.Action("Index2", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter } ))
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     </div>
-</div>
+</div>*@

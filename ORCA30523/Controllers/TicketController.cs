@@ -31,6 +31,9 @@ namespace ORCA30523.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.NameSortParm3 = sortOrder == "from2" ? "from" : "from2";
+            ViewBag.NameSortParm4 = sortOrder == "subject2" ? "subject" : "subject2";
+            ViewBag.DateSortParm2 = sortOrder == "Date2" ? "date_desc2" : "Date2"; 
 
             if (searchString != null)
             {
@@ -53,14 +56,30 @@ namespace ORCA30523.Controllers
             {
                 case "name_desc":
                     posts = posts.OrderByDescending(s => s.ToEmail);
-                    posts = posts.OrderByDescending(s => s.Subject);
+                    //posts = posts.OrderByDescending(s => s.Subject);
                     break;
+                case "from":
+                    posts = posts.OrderBy(s => s.FromEmail);
+                    break;
+                case "from2":
+                    posts = posts.OrderByDescending(s => s.FromEmail);
+                    break;
+                case "subject":
+                    posts = posts.OrderBy(s => s.Subject);
+                    break;
+                case "subject2":
+                    posts = posts.OrderByDescending(s => s.Subject);
+                    break; 
                 case "Date":
                     posts = posts.OrderBy(s => s.DatePosted);
-                    posts = posts.OrderBy(s => s.CreateDate);
                     break;
                 case "date_desc":
                     posts = posts.OrderByDescending(s => s.DatePosted);
+                    break;
+                case "Date2":
+                    posts = posts.OrderBy(s => s.CreateDate);
+                    break;
+                case "date_desc2":
                     posts = posts.OrderByDescending(s => s.CreateDate);
                     break;
                 default:
