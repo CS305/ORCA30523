@@ -172,11 +172,12 @@
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
         </div>
 </div>*@
-<footer>
-    <p style="width:100%">
+    <footer>
+    <p style="width:100%;width: 300px; height: 400px">
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
-    <p style="color: #079449;">
+    </p>
+    <p style="color: #079449;width:300px; height: 20px">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount 
     </p>
 </footer>
+
